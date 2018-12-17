@@ -79,7 +79,7 @@ services:
         target: /usr/share/logstash/config/logstash.keystore
       - source: ca.crt
         target: /usr/share/logstash/config/certs/ca/ca.crt
-    ports: ['5044:5044', '5000:5000']
+    ports: ['5044:5044']
     networks: ['stack']
     depends_on: ['elasticsearch']
     healthcheck:
@@ -131,7 +131,7 @@ services:
     volumes:
       - './scripts/setup-beat.sh:/usr/local/bin/setup-beat.sh:ro'
     networks: ['stack']
-    depends_on: ['elasticsearch', 'kibana']
+    depends_on: ['elasticsearch', 'kibana', 'logstash']
     healthcheck:
       test: filebeat test config
       interval: 30s
@@ -152,7 +152,7 @@ services:
     volumes:
       - './scripts/setup-beat.sh:/usr/local/bin/setup-beat.sh:ro'
     networks: ['stack']
-    depends_on: ['elasticsearch', 'kibana']
+    depends_on: ['elasticsearch', 'kibana', 'logstash']
     healthcheck:
       test: heartbeat test config
       interval: 30s
@@ -181,7 +181,7 @@ services:
     volumes:
       - './scripts/setup-beat.sh:/usr/local/bin/setup-beat.sh:ro'
     networks: ['stack']
-    depends_on: ['elasticsearch', 'kibana']
+    depends_on: ['elasticsearch', 'kibana', 'logstash']
     healthcheck:
       test: metricbeat test config
       interval: 30s

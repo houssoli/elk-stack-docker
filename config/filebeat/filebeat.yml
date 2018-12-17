@@ -16,6 +16,7 @@ output.elasticsearch:
   # Read PW from filebeat.keystore
   password: "${ELASTIC_PASSWORD}"
   ssl.certificate_authorities: ["/usr/share/filebeat/certs/ca/ca.crt"]
+  enabled: false
 
 setup.kibana:
   host: "http://kibana:5601"
@@ -24,3 +25,9 @@ setup.kibana:
   protocol: "http"
   ssl.enabled: false
   ssl.certificate_authorities: ["/usr/share/filebeat/certs/ca/ca.crt"]
+
+#----------------------------- Logstash output --------------------------------
+output.logstash:
+  # The Logstash hosts
+  hosts: ["logstash:5044"]
+  enabled: true
